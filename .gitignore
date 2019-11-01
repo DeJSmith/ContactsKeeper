@@ -8,6 +8,16 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
+# Client files
+/client/build
+
+
+.DS_Store
+/client/.env.Local
+/client/.env.developement.Local
+/client/.env.text.Local
+/client/.env/production.local
+
 # Runtime data
 pids
 *.pid
