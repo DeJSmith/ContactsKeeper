@@ -20,53 +20,87 @@ const ContactState = (props) => {
 				name: 'gang gang',
 				email: 'gang@gang.com',
 				phone: '111-111-1111',
-				tpye: 'personal'
+				type: 'personal'
 			},
 			{
 				id: 2,
 				name: 'chur bitch',
 				email: 'chur@gang.com',
 				phone: '111-111-1111',
-				tpye: 'chur'
+				type: 'professional'
 			},
 			{
 				id: 3,
 				name: 'what skux',
 				email: 'skux@gang.com',
 				phone: '111-111-1111',
-				tpye: 'personal'
+				type: 'personal'
 			},
 			{
 				id: 4,
 				name: 'young blood',
 				email: 'blood@gang.com',
 				phone: '111-111-1111',
-				tpye: 'affiliated'
+				type: 'affiliated'
 			}
-		]
+		],
+		current: null,
+		filtered: null
 	};
 
 	const [state, dispatch] = useReducer(contactReducer, initialState);
 
 	//Add Contact
+	const addContact = (contact) => {
+		contact.id = uuid.v4();
+		dispatch({ type: ADD_CONTACT, payload: contact });
+	};
 
 	//Delete Contact
+	const deleteContact = (id) => {
+		dispatch({ type: DELETE_CONTACT, payload: id });
+	};
 
 	//Set Current Contact
+	const setCurrent = (contact) => {
+		dispatch({ type: SET_CURRENT, payload: contact });
+	};
 
 	//Clear Current Contact
+	const clearCurrent = () => {
+		dispatch({ type: CLEAR_CURRENT });
+	};
 
 	//Update Contact
+	const updateContact = (contact) => {
+		dispatch({ type: UPDATE_CONTACT, payload: contact });
+	};
 
 	//Filter Contacts
+	const filterContacts = (text) => {
+		dispatch({ type: FILTER_CONTACTS, payload: text });
+	};
 
 	//Clear Filter
+	const clearFilter = () => {
+		dispatch({ type: CLEAR_FILTER });
+	};
 
 	return (
 		<ContactContext.Provider
 			value={{
-				contacts: state.contacts
-			}}>
+				contacts: state.contacts,
+				current: state.current,
+				filtered: state.filtered,
+				addContact,
+				deleteContact,
+				setCurrent,
+				clearCurrent,
+				updateContact,
+				filterContacts,
+				clearFilter
+			}}
+		>
 			{props.children}
 		</ContactContext.Provider>
 	);
